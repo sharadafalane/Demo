@@ -9,7 +9,7 @@ def grayscale_conversion(image):
 
 # Function to rotate image using OpenCV
 def rotate_image(image, angle):
-    rows, cols = image.shape[:2]  # Updated to use shape[:2] instead of shape
+    rows, cols, _ = image.shape
     M = cv2.getRotationMatrix2D((cols/2, rows/2), angle, 1)
     rotated_image = cv2.warpAffine(image, M, (cols, rows))
     return rotated_image
@@ -35,7 +35,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg
 
 if uploaded_file is not None:
     # Read image
-    image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), -1)  # Updated to use np.frombuffer
+    image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), 1)
     
     # Display original image
     st.subheader("Original Image")
